@@ -1,19 +1,16 @@
-def contar_numeros_negativos():
+# Cria um vetor (lista) vazio
+numeros = []
 
-  vetor = []
-  cont = 0
+# Solicita 4 números ao usuário
+for i in range(4):
+    num = float(input(f"Digite o {i + 1}º número: "))
+    numeros.append(num)
 
-  print("Digite 4 números:")
-  for i in range(4):
-    num = float(input(f"Número {i+1}: "))  # Leitura de números com ponto flutuante
-    vetor.append(num)
-
-  for num in vetor:
+# Conta quantos números são negativos
+negativos = 0
+for num in numeros:
     if num < 0:
-      cont += 1
+        negativos += 1
 
-  print(f"A quantidade de números negativos digitados foi: {cont}")
-
-
-# Chamada da função
-contar_numeros_negativos()
+# Exibe o resultado
+print(f"\nVocê digitou {negativos} número(s) negativo(s).")

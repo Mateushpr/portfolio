@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troca de cor por horário</title>
+</head>
+<body>
+    <h1 id="Titulo">Bem-Vindo(a)!</h1>
+    <p id="frase">Clique no botão para mudar a cor da página de acordo com o horário atual.</p>
+    <p id="hora"></p>
+    <p id="data"></p>
+    <button onclick="mudarCor()">Mudar Cor</button>
+</body>
+<script>
+    function mudarCor() {
+        const horaAtual = new Date().getHours(); // Pega a hora atual
+        let corFundo;
+        let mensagem;
+        
+        // Criando objeto Date
+        const agora = new Date();
+        const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        
+        // Formatação da data
+        const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);
+        
+        // Definindo o horário e cor
+        if (horaAtual >= 6 && horaAtual < 12) {
+            corFundo = '#FFE98A';
+            mensagem = "Bom dia! ☀️";
+        } else if (horaAtual >= 12 && horaAtual < 18) {
+            corFundo = '#FFB35E';
+            mensagem = "Boa tarde! ⛅";
+        } else if (horaAtual >= 18 && horaAtual < 21) {
+            corFundo = '#7DBEF5';
+            mensagem = "Boa noite! 💤";
+        } else {
+            corFundo = '#2C3E50';
+            mensagem = "Está na hora de descansar! 😴"; // Mensagem mais amigável
+        }
+        
+        // Atualizando o fundo da página e o título
+        document.body.style.backgroundColor = corFundo;
+        document.getElementById("Titulo").innerText = mensagem;
+        
+        // Exibindo hora e data
+        document.getElementById("hora").innerText = "Hora atual: " + agora.toLocaleTimeString('pt-BR');
+        document.getElementById("data").innerText = "Data: " + dataFormatada;
+    }
+</script>
+<style>
+    body {
+        text-align: center;
+        font-family: cursive;
+        transition: background-color 1s;
+        color: black;
+        padding-top: 150px;
+    }
+    button {
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: black 1px solid;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 20px;
+        background-color: #ffff;
+        font-family: cursive;
+    }
+    @media (max-width: 768px) {
+        body {
+            padding-top: 50px;
+            font-size: 35px;
+        }
+        button {
+            font-size: 14px;
+            padding-top: 16px;
+        }
+    }
+</style>
+</html>

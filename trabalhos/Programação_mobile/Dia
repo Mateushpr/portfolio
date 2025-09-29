@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troca de cor por horário</title>
+    <link rel="manifest" href="manifest.json"
+    <meta name="theme-color" content="#000000"
+</head>
+<body>
+    <div class="container">
+    <h1 id="Titulo">Bem-Vindo(a)!</h1>
+    <p id="hora"></p>
+    <p id="data"></p>
+    <p id="dialegal"></p>
+    <p id="frase"></p>
+
+    </div>
+</body>
+<script>
+    let frases = [];
+    function mudarCor() {
+        const horaAtual = new Date().getHours(); // Pega a hora atual
+        let imgFundo;
+        let mensagem;
+        
+        // Criando objeto Date
+        const agora = new Date();
+        const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dia = agora.getDay();
+        
+        // Formatação da data
+        const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);
+        if (dia >= 1 && dia <= 5) {
+            diatipo = "💼 Dia útil. Bom trabalho!";
+        } else {
+            diatipo = "🥳 Final de semana. Aproveite!"
+        }
+        document.getElementById("dialegal").innerText = diatipo;
+        
+        // Definindo o horário e cor
+        if (horaAtual >= 6 && horaAtual < 12) {
+            imgFundo = 'img/manha.jpeg';
+            mensagem = "Bom dia! ☀️";
+            frases = [
+                "Acorde e brilhe!",
+            "Que o dia de hoje seja uma tela em branco e você seja o artista. Pinte um quadro incrível.",
+            "Que cada amanhecer seja uma nova chance de fazer a diferença. Aproveite essa oportunidade.",
+            "Que o otimismo seja o seu guia hoje e sempre. Bom dia!"
+        ];
+        } else if (horaAtual >= 12 && horaAtual < 18) {
+            imgFundo = 'img/tarde.jpg';
+            mensagem = "Boa tarde! ⛅";
+            frases = [
+            "Ao olhar para o céu, que você sinta a presença de Deus iluminando seu caminho.",
+            "Que cada raio de sol desta tarde te envolva em amor e esperança.",
+            "Que nossa tarde seja abençoada, e cheia de aventuras."
+        ]
+
+        } else if (horaAtual >= 18 && horaAtual < 21) {
+            imgFundo = 'img/noite.jpg';
+            mensagem = "Boa noite! 💤";
+            frases = [
+                "O dia acaba, mas o meu amor por você só se renova. Boa noite!",
+            "Fecho os olhos e tudo que vejo é você. Durma bem, meu amor, e me encontre nos seus sonhos.",
+            "Você é a paz que meu coração precisa para descansar. Tenha uma noite linda, meu amor." 
+        ]
+
+
+
+        } else {
+            imgFundo = 'img/madrugada.jpg';
+            mensagem = "Está na hora de descansar! 😴"; 
+            frases = [
+                "durma com Deus!"
+        ]
+        }
+        
+        
+        // Atualizando o fundo da página e o título]
+          document.body.style.backgroundImage = "url('" + imgFundo + "')";
+        document.getElementById("Titulo").innerText = mensagem;
+        
+        // Exibindo hora e data
+        document.getElementById("hora").innerText = "Hora atual: ⌛" + agora.toLocaleTimeString('pt-BR');
+        document.getElementById("data").innerText = "Data: 📅 " + dataFormatada;
+}
+
+function trocarFrase() {
+    if (frases.length > 0) {
+        const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+        document.getElementById ("frase").innerText = fraseAleatoria;
+    }
+}
+// Chama a função inicialmente
+mudarCor();
+ setInterval(mudarCor,1000);
+ trocarFrase();
+ setInterval(trocarFrase,5000)
+ 
+ 
+</script>
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("service worker registrado"))
+        .catch(err => console.log( "Erro no SW:", err));
+    }
+</script>
+<style>
+    .container {
+        background-color: rgba(255, 255, 255, 0.8);
+        max-width: 400px;
+        width: 100%;
+        padding: 50px 40px;
+        border-radius: 10px;
+        text-align: center;
+        
+    }
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+  
+    
+    @media (max-width: 480px) {
+        body {
+            padding-top: 50px;
+            font-size: 35px;
+        }
+        .container{
+            width: 70%;
+        }
+    }
+</style>
+</html>
